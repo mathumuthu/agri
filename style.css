@@ -967,7 +967,45 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
+/* About Section Mobile Fix */
+@media (max-width: 768px){
 
+    .about-content{
+        display:flex !important;
+        flex-direction:column !important;
+        gap:25px !important;
+        text-align:center;
+    }
+
+    .about-left{
+        order:1;
+        width:100%;
+    }
+
+    .about-center{
+        order:2;
+        width:100%;
+    }
+
+    .about-center img{
+        width:100%;
+        max-width:320px;
+        height:auto;
+        display:block;
+        margin:0 auto;
+    }
+
+    .about-right{
+        order:3;
+        width:100%;
+    }
+
+    .about-right p{
+        text-align:center;
+        font-size:16px;
+        line-height:1.8;
+    }
+}
 
 
 
