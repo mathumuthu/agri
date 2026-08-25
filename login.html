@@ -403,6 +403,15 @@ body {
     .form-group .input-icon { left: 14px; bottom: 13px; }
     .alert-box { min-width: 90%; font-size: 13px; padding: 14px 20px; }
 }
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+input[type="password"] {
+    appearance: none;
+    -webkit-appearance: none;
+}
 </style>
 <!-- <base target="_blank"> -->
 </head>
