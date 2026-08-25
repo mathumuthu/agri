@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stackly - Login</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 20px;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+    animation: slideUp 0.8s ease;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Top Red Header */
+.login-header {
+    background: #daaf12;
+    padding: 30px 25px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+
+.login-header .logo-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.login-header .logo-area img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255,255,255,0.3);
+}
+
+.login-header .logo-area h2 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.login-header p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* User Type Tabs */
+.user-tabs {
+    display: flex;
+    background: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.user-tab {
+    flex: 1;
+    padding: 16px 10px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6c757d;
+    transition: all 0.3s ease;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.user-tab:hover { color: #98db07; background: #fff; }
+.user-tab.active {
+    color: #2bbb23;
+    background: #fff;
+    border-bottom: 3px solid #40b10baf;
+}
+
+/* Form Body */
+.form-body {
+    padding: 30px 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px 16px 14px 45px;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #0ecd1b;
+    box-shadow: 0 0 0 4px rgba(230,57,70,0.1);
+}
+
+.form-group .input-icon {
+    position: absolute;
+    left: 16px;
+    bottom: 14px;
+    color: #adb5bd;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.form-group input:focus + .input-icon,
+.form-group input:not(:placeholder-shown) + .input-icon {
+    color: #32ae09;
+}
+
+/* Toggle Password */
+.toggle-password {
+    position: absolute;
+    right: 16px;
+    bottom: 14px;
+    color: #adb5bd;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+.toggle-password:hover { color: #3aa30d; }
+
+/* Remember & Forgot */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    font-size: 13px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #6c757d;
+    cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #0aeb3b;
+    cursor: pointer;
+}
+
+.forgot-link {
+    color: #41da0a;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+.forgot-link:hover { color: #5cde15; text-decoration: underline; }
+
+/* Login Button */
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    background: #46b70d;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.login-btn:hover {
+    background: #15e5b1;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(230,57,70,0.35);
+}
+
+.login-btn:active { transform: translateY(0); }
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 22px 0;
+    color: #adb5bd;
+    font-size: 13px;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e9ecef;
+}
+
+.divider span { padding: 0 15px; }
+
+/* Sign Up Link */
+.signup-text {
+    text-align: center;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.signup-text a {
+    color: #e63946;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.signup-text a:hover { color: #c1121f; text-decoration: underline; }
+
+/* Back to Home */
+.back-home {
+    text-align: center;
+    margin-top: 18px;
+}
+
+.back-home a {
+    color: #adb5bd;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.3s ease;
+}
+
+.back-home a:hover { color: #e63946; }
+
+/* Alert Box */
+.alert-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    padding: 16px 28px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: all 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+    min-width: 300px;
+    justify-content: center;
+}
+
+.alert-box.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.alert-box.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-box.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-box.info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.alert-box i { font-size: 18px; }
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-box {
+    background: #fff;
+    border-radius: 20px;
+    padding: 35px 30px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.show .modal-box {
+    transform: scale(1);
+}
+
+.modal-box h3 {
+    font-size: 20px;
+    color: #212529;
+    margin-bottom: 10px;
+}
+
+.modal-box p {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 22px;
+    line-height: 1.6;
+}
+
+.modal-box .modal-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 5px;
+}
+
+.modal-btn.primary {
+    background: #e63946;
+    color: #fff;
+}
+.modal-btn.primary:hover { background: #c1121f; }
+
+.modal-btn.secondary {
+    background: #e9ecef;
+    color: #495057;
+}
+.modal-btn.secondary:hover { background: #dee2e6; }
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .login-wrapper { border-radius: 16px; }
+    .login-header { padding: 22px 18px; }
+    .login-header .logo-area h2 { font-size: 22px; }
+    .form-body { padding: 22px 18px; }
+    .user-tab { font-size: 12px; padding: 14px 6px; gap: 5px; }
+    .form-group input { padding: 13px 14px 13px 42px; font-size: 14px; }
+    .form-group .input-icon { left: 14px; bottom: 13px; }
+    .alert-box { min-width: 90%; font-size: 13px; padding: 14px 20px; }
+}
+</style>
+<!-- <base target="_blank"> -->
+</head>
+<body>
+
+<!-- Alert Box -->
+<div id="alertBox" class="alert-box">
+    <i class="fas fa-info-circle"></i>
+    <span id="alertMsg">Message here</span>
+</div>
+
+<!-- Modal Overlay -->
+<div id="modalOverlay" class="modal-overlay">
+    <div class="modal-box">
+        <h3 id="modalTitle">Title</h3>
+        <p id="modalText">Text</p>
+        <div id="modalButtons"></div>
+    </div>
+</div>
+
+<div class="login-wrapper">
+
+    <!-- Header -->
+    <div class="login-header">
+        <div class="logo-area">
+            <img src="logo.png" alt="Stackly Logo">
+            <h2>Stackly</h2>
+        </div>
+        <p>Welcome back! Please login to continue.</p>
+    </div>
+
+    <!-- User Type Tabs -->
+    <div class="user-tabs">
+        <!-- <button class="user-tab active" data-type="user" onclick="switchTab('user')">
+            <i class="fas fa-user"></i> User
+        </button> -->
+        <button class="user-tab" data-type="admin" onclick="switchTab('admin')">
+            <i class="fas fa-user-shield"></i> Admin
+        </button>
+        <button class="user-tab" data-type="donor" onclick="switchTab('user')">
+            <i class="fas fa-hand-holding-heart"></i> User
+        </button>
+    </div>
+
+    <!-- Form Body -->
+    <div class="form-body">
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+
+            <!-- Email -->
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" autocomplete="email">
+                <i class="fas fa-envelope input-icon"></i>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+                <i class="fas fa-lock input-icon"></i>
+                <i class="fas fa-eye toggle-password" onclick="togglePassword()"></i>
+            </div>
+
+            <!-- Remember & Forgot -->
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <span>Remember me</span>
+                </label>
+                <a href="404.html">Forgot Password?</a>
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Login</span>
+            </button>
+
+        </form>
+
+        <!-- Divider -->
+        <div class="divider"><span>OR</span></div>
+
+        <!-- Sign Up -->
+        <p class="signup-text">
+            Don't have an account? <a href="#" onclick="showSignupModal(event)">Sign Up</a>
+        </p>
+
+        <!-- Back to Home -->
+        <div class="back-home">
+            <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+let currentUserType = 'user';
+
+// ========== TAB SWITCHING ==========
+function switchTab(type) {
+    currentUserType = type;
+    document.querySelectorAll('.user-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.type === type);
+    });
+    showAlert('Switched to ' + type.charAt(0).toUpperCase() + type.slice(1) + ' Login', 'info');
+}
+
+// ========== TOGGLE PASSWORD ==========
+function togglePassword() {
+    const passInput = document.getElementById('password');
+    const toggleIcon = document.querySelector('.toggle-password');
+    if (passInput.type === 'password') {
+        passInput.type = 'text';
+        toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+        passInput.type = 'password';
+        toggleIcon.classList.replace('fa-eye-slash', 'fa-eye');
+    }
+}
+
+// ========== ALERT BOX ==========
+function showAlert(msg, type = 'info') {
+    const alertBox = document.getElementById('alertBox');
+    const alertMsg = document.getElementById('alertMsg');
+    const icon = alertBox.querySelector('i');
+
+    alertBox.className = 'alert-box ' + type;
+    alertMsg.textContent = msg;
+
+    if (type === 'success') icon.className = 'fas fa-check-circle';
+    else if (type === 'error') icon.className = 'fas fa-exclamation-circle';
+    else icon.className = 'fas fa-info-circle';
+
+    alertBox.classList.add('show');
+
+    setTimeout(() => {
+        alertBox.classList.remove('show');
+    }, 3000);
+}
+
+// ========== MODAL ==========
+function showModal(title, text, buttons) {
+    const overlay = document.getElementById('modalOverlay');
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalText').textContent = text;
+    document.getElementById('modalButtons').innerHTML = buttons;
+    overlay.classList.add('show');
+}
+
+function hideModal() {
+    document.getElementById('modalOverlay').classList.remove('show');
+}
+
+// ========== FORGOT PASSWORD MODAL ==========
+function showForgotModal(e) {
+    e.preventDefault();
+    showModal(
+        'Forgot Password?',
+        'Enter your email address and we will send you a password reset link.',
+        `<input type="email" id="resetEmail" placeholder="Enter your email" style="width:100%;padding:12px 14px;border:2px solid #e9ecef;border-radius:10px;margin-bottom:15px;font-size:14px;outline:none;" onfocus="this.style.borderColor='#e63946'" onblur="this.style.borderColor='#e9ecef'">
+         <br>
+         <button class="modal-btn primary" onclick="sendResetLink()">Send Reset Link</button>
+         <button class="modal-btn secondary" onclick="hideModal()">Cancel</button>`
+    );
+}
+
+function sendResetLink() {
+    const email = document.getElementById('resetEmail').value.trim();
+    if (!email) {
+        showAlert('Please enter your email address', 'error');
+        return;
+    }
+    const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailCheck.test(email)) {
+        showAlert('Please enter a valid email address', 'error');
+        return;
+    }
+    hideModal();
+    showAlert('Password reset link sent to ' + email, 'success');
+}
+
+
+function toggleSignupPassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.replace("fa-eye","fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.replace("fa-eye-slash","fa-eye");
+    }
+}
+
+// ========== SIGN UP MODAL ==========
+function showSignupModal(e) {
+    e.preventDefault();
+    showModal(
+        'Create New Account',
+        'Fill in your details to register as a new user.',
+        `<div style="text-align:left;margin-bottom:15px;">
+            <input type="text"
+id="signupName"
+placeholder="Full Name"
+oninput="this.value=this.value.replace(/[^A-Za-z ]/g,'')"
+style="width:100%;padding:12px 14px;border:2px solid #e9ecef;border-radius:10px;margin-bottom:10px;font-size:14px;outline:none;"
+onfocus="this.style.borderColor='#e63946'"
+onblur="this.style.borderColor='#e9ecef'">
+            <input type="email" id="signupEmail" placeholder="Email Address" style="width:100%;padding:12px 14px;border:2px solid #e9ecef;border-radius:10px;margin-bottom:10px;font-size:14px;outline:none;" onfocus="this.style.borderColor='#e63946'" onblur="this.style.borderColor='#e9ecef'">
+            <div style="position:relative;margin-bottom:10px;">
+            <input type="password" id="signupPassword" placeholder="Create Password" style="width:100%;padding:12px 45px 12px 14px;border:2px solid #e9ecef;border-radius:10px;font-size:14px;outline:none;" onfocus="this.style.borderColor='#e63946'" onblur="this.style.borderColor='#e9ecef'">
+            <i class="fas fa-eye" onclick="toggleSignupPassword('signupPassword', this)" style="position:absolute;right:15px;top:14px;cursor:pointer;color:#999;"></i>
+            </div>
+            <div style="position:relative;">
+            <input type="password" id="signupConfirm" placeholder="Confirm Password" style="width:100%;padding:12px 45px 12px 14px;border:2px solid #e9ecef;border-radius:10px;font-size:14px;outline:none;" onfocus="this.style.borderColor='#e63946'" onblur="this.style.borderColor='#e9ecef'">
+            <i class="fas fa-eye" onclick="toggleSignupPassword('signupConfirm', this)" style="position:absolute;right:15px;top:14px;cursor:pointer;color:#999;"></i>
+            </div>
+         </div>
+         <button class="modal-btn primary" onclick="handleSignup()">Sign Up</button>
+         <button class="modal-btn secondary" onclick="hideModal()">Cancel</button>`
+    );
+}
+
+function handleSignup() {
+    const name = document.getElementById('signupName').value.trim();
+    
+    const email = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value;
+    const confirm = document.getElementById('signupConfirm').value;
+
+    if (!name || !email || !password || !confirm) {
+        showAlert('Please fill in all fields', 'error');
+        return;
+    }
+
+    const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailCheck.test(email)) {
+        showAlert('Please enter a valid email address', 'error');
+        return;
+    }
+
+    const passwordRegex =
+/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+if (!passwordRegex.test(password)) {
+    showAlert(
+        "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character.",
+        "error"
+    );
+    return;
+}
+
+    if (password !== confirm) {
+        showAlert('Passwords do not match', 'error');
+        return;
+    }
+localStorage.setItem("userName", name);
+localStorage.setItem("userEmail", email);
+    hideModal();
+    showAlert('Account created successfully! Please login.', 'success');
+}
+
+// ========== LOGIN HANDLER ==========
+function handleLogin(e) {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    // Validation
+    if (!email) {
+        showAlert('Please enter your email address', 'error');
+        document.getElementById('email').focus();
+        return;
+    }
+
+    const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailCheck.test(email)) {
+        showAlert('Please enter a valid email address', 'error');
+        document.getElementById('email').focus();
+        return;
+    }
+
+    if (!password) {
+        showAlert('Please enter your password', 'error');
+        document.getElementById('password').focus();
+        return;
+    }
+
+    const passwordRegex =
+/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
+
+if (!passwordRegex.test(password)) {
+    showAlert(
+        "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character.",
+        "error"
+    );
+    document.getElementById('password').focus();
+    return;
+}
+
+    // Success - redirect based on user type
+    localStorage.setItem("loggedInEmail", email);
+    const userName = localStorage.getItem("userName");
+
+if (userName) {
+    localStorage.setItem("loggedInName", userName);
+}
+    showAlert('Login successful! Welcome ' + currentUserType.charAt(0).toUpperCase() + currentUserType.slice(1), 'success');
+
+    setTimeout(() => {
+        if (currentUserType === 'admin') {
+            window.location.href = 'admin.html';
+        } else if (currentUserType === 'donor') {
+            window.location.href = 'user.html';
+        } else {
+            window.location.href = 'user.html';
+        }
+    }, 1500);
+}
+
+// ========== CLOSE MODAL ON OUTSIDE CLICK ==========
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+    if (e.target === this) hideModal();
+});
+
+// ========== ENTER KEY ON MODAL INPUTS ==========
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') hideModal();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stackly - Farmer Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="logo.png" alt="Stackly Logo" class="sidebar-logo-image">
+                <div class="sidebar-logo-text">
+                    <div>Stackly</div>
+                    <div class="sidebar-logo-sub">Farmer Portal</div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <button class="nav-link active" data-page="user-dashboard">
+                        <i class="fas fa-th-large"></i>
+                        <span class="nav-text">Dashboard</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-link" data-page="user-farm">
+                        <i class="fas fa-tractor"></i>
+                        <span class="nav-text">My Farm</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-link" data-page="user-crops">
+                        <i class="fas fa-seedling"></i>
+                        <span class="nav-text">My Crops</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-link" data-page="user-market">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="nav-text">Market</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-link" data-page="user-profile">
+                        <i class="fas fa-user"></i>
+                        <span class="nav-text">Profile</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="nav-link" onclick="logout()" style="color: #dc2626;">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="nav-text">Logout</span>
+            </button>
+        </div>
+
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+
+        <!-- Header -->
+        <header class="top-header">
+            <div class="header-left">
+                <button class="menu-btn" id="menuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-title">
+                    <h1 id="pageTitle">My Dashboard</h1>
+                    <p id="pageSubtitle">Your farm at a glance</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <button class="header-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge-dot"></span>
+                </button>
+                <div class="header-profile">
+                    <div class="header-profile-info">
+                        <div class="name">John Doe</div>
+                        <div class="role">Premium Farmer</div>
+                    </div>
+                    <div class="header-avatar">JD</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content-area">
+
+            <!-- ========== USER DASHBOARD ========== -->
+            <div class="page-section active" id="user-dashboard">
+
+                <!-- Weather & Quick Stats -->
+                <div class="grid-2" style="margin-bottom: 24px;">
+                    <div class="weather-card">
+                        <div class="weather-header">
+                            <div>
+                                <div class="weather-label">Current Weather</div>
+                                <div class="weather-temp">72°F</div>
+                            </div>
+                            <i class="fas fa-sun" style="font-size: 48px; opacity: 0.9;"></i>
+                        </div>
+                        <div class="weather-grid">
+                            <div class="weather-grid-item">
+                                <i class="fas fa-wind"></i>
+                                <div class="val">8 mph</div>
+                                <div class="lbl">Wind</div>
+                            </div>
+                            <div class="weather-grid-item">
+                                <i class="fas fa-tint"></i>
+                                <div class="val">45%</div>
+                                <div class="lbl">Humidity</div>
+                            </div>
+                            <div class="weather-grid-item">
+                                <i class="fas fa-eye"></i>
+                                <div class="val">10 mi</div>
+                                <div class="lbl">Visibility</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 12px; opacity: 0.8;">
+                            Springfield, IL • Updated 5m ago
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                        <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;">
+                            <div class="stat-icon green" style="margin-bottom: 12px;"><i class="fas fa-map"></i></div>
+                            <div class="stat-value" style="font-size: 24px;">45</div>
+                            <div class="stat-label">Total Acres</div>
+                        </div>
+                        <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;">
+                            <div class="stat-icon blue" style="margin-bottom: 12px;"><i class="fas fa-seedling"></i></div>
+                            <div class="stat-value" style="font-size: 24px;">12</div>
+                            <div class="stat-label">Active Crops</div>
+                        </div>
+                        <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px;">
+                            <div class="stat-icon amber" style="margin-bottom: 12px;"><i class="fas fa-dollar-sign"></i></div>
+                            <div class="stat-value" style="font-size: 24px;">$24.5K</div>
+                            <div class="stat-label">Est. Revenue</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Farm Activity & Market -->
+                <div class="grid-2" style="margin-bottom: 24px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Farm Activity Overview</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="farmActivityChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Market Prices</div>
+                            <button class="btn btn-sm btn-secondary">View All</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="market-item">
+                                <div class="market-item-left">
+                                    <div class="market-item-icon" style="background: #fef3c7; color: #d97706;"><i class="fas fa-bread-slice"></i></div>
+                                    <span class="market-item-name">Wheat</span>
+                                </div>
+                                <div class="market-item-right">
+                                    <div class="market-item-price">$6.42</div>
+                                    <div class="market-item-change up"><i class="fas fa-arrow-up" style="font-size: 9px;"></i> 2.4%</div>
+                                </div>
+                            </div>
+                            <div class="market-item">
+                                <div class="market-item-left">
+                                    <div class="market-item-icon" style="background: #fef9c3; color: #a16207;"><i class="fas fa-corn"></i></div>
+                                    <span class="market-item-name">Corn</span>
+                                </div>
+                                <div class="market-item-right">
+                                    <div class="market-item-price">$4.18</div>
+                                    <div class="market-item-change down"><i class="fas fa-arrow-down" style="font-size: 9px;"></i> 1.2%</div>
+                                </div>
+                            </div>
+                            <div class="market-item">
+                                <div class="market-item-left">
+                                    <div class="market-item-icon" style="background: #dcfce7; color: #16a34a;"><i class="fas fa-seedling"></i></div>
+                                    <span class="market-item-name">Soybeans</span>
+                                </div>
+                                <div class="market-item-right">
+                                    <div class="market-item-price">$12.85</div>
+                                    <div class="market-item-change up"><i class="fas fa-arrow-up" style="font-size: 9px;"></i> 3.1%</div>
+                                </div>
+                            </div>
+                            <div class="market-item">
+                                <div class="market-item-left">
+                                    <div class="market-item-icon" style="background: #d1fae5; color: #059669;"><i class="fas fa-bowl-rice"></i></div>
+                                    <span class="market-item-name">Rice</span>
+                                </div>
+                                <div class="market-item-right">
+                                    <div class="market-item-price">$18.20</div>
+                                    <div class="market-item-change up"><i class="fas fa-arrow-up" style="font-size: 9px;"></i> 0.8%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Tasks -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Upcoming Tasks</div>
+                        <button class="btn btn-sm btn-secondary">View Calendar</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid-4" style="gap: 16px;">
+                            <div class="task-card green">
+                                <div class="task-time">Today, 2:00 PM</div>
+                                <div class="task-title">Irrigate Wheat Field</div>
+                                <div class="task-desc">Sector A • 12 acres</div>
+                            </div>
+                            <div class="task-card amber">
+                                <div class="task-time">Tomorrow, 8:00 AM</div>
+                                <div class="task-title">Apply Fertilizer</div>
+                                <div class="task-desc">Corn Field • 20 acres</div>
+                            </div>
+                            <div class="task-card blue">
+                                <div class="task-time">Aug 28, 6:00 AM</div>
+                                <div class="task-title">Pest Inspection</div>
+                                <div class="task-desc">All Sectors</div>
+                            </div>
+                            <div class="task-card purple">
+                                <div class="task-time">Aug 30, 9:00 AM</div>
+                                <div class="task-title">Harvest Soybeans</div>
+                                <div class="task-desc">Sector C • 8 acres</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== USER FARM ========== -->
+            <div class="page-section" id="user-farm">
+                <div class="grid-2">
+                    <div class="card" style="grid-column: span 1;">
+                        <div class="card-header">
+                            <div class="card-title">Farm Layout</div>
+                        </div>
+                        <div class="card-body">
+                            <div style="background: linear-gradient(135deg, #ecfdf5, #d1fae5); border-radius: 12px; padding: 24px; min-height: 320px; display: flex; align-items: center; justify-content: center;">
+                                <div class="farm-grid" style="width: 100%; max-width: 400px;">
+                                    <div class="farm-sector" style="background: rgba(245, 158, 11, 0.2); border-color: #f59e0b; color: #92400e;">
+                                        <i class="fas fa-wheat-awn"></i>
+                                        <div class="name">Wheat</div>
+                                        <div class="area">12 acres</div>
+                                    </div>
+                                    <div class="farm-sector" style="background: rgba(234, 179, 8, 0.2); border-color: #eab308; color: #854d0e;">
+                                        <i class="fas fa-corn"></i>
+                                        <div class="name">Corn</div>
+                                        <div class="area">20 acres</div>
+                                    </div>
+                                    <div class="farm-sector" style="background: rgba(34, 197, 94, 0.2); border-color: #22c55e; color: #166534;">
+                                        <i class="fas fa-seedling"></i>
+                                        <div class="name">Soybeans</div>
+                                        <div class="area">8 acres</div>
+                                    </div>
+                                    <div class="farm-sector" style="background: rgba(59, 130, 246, 0.2); border-color: #3b82f6; color: #1e40af;">
+                                        <i class="fas fa-bowl-rice"></i>
+                                        <div class="name">Rice</div>
+                                        <div class="area">5 acres</div>
+                                    </div>
+                                    <div class="farm-sector" style="background: rgba(168, 85, 247, 0.2); border-color: #a855f7; color: #6b21a8;">
+                                        <i class="fas fa-carrot"></i>
+                                        <div class="name">Veggies</div>
+                                        <div class="area">3 acres</div>
+                                    </div>
+                                    <div class="farm-sector" style="background: rgba(156, 163, 175, 0.15); border-color: #9ca3af; border-style: dashed; color: #6b7280;">
+                                        <i class="fas fa-plus"></i>
+                                        <div class="name">Empty</div>
+                                        <div class="area">2 acres</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Equipment Status</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="info-row">
+                                    <div class="info-row-left">
+                                        <i class="fas fa-tractor" style="color: var(--gray-400);"></i>
+                                        <span>John Deere 8R</span>
+                                    </div>
+                                    <span class="badge badge-success">Active</span>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-row-left">
+                                        <i class="fas fa-tint" style="color: var(--gray-400);"></i>
+                                        <span>Irrigation System</span>
+                                    </div>
+                                    <span class="badge badge-success">Active</span>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-row-left">
+                                        <i class="fas fa-plane" style="color: var(--gray-400);"></i>
+                                        <span>Drone Sprayer</span>
+                                    </div>
+                                    <span class="badge badge-warning">Maintenance</span>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-row-left">
+                                        <i class="fas fa-box" style="color: var(--gray-400);"></i>
+                                        <span>Harvester</span>
+                                    </div>
+                                    <span class="badge badge-success">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Soil Health</div>
+                            </div>
+                            <div class="card-body">
+                                <div style="margin-bottom: 16px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                                        <span style="color: var(--gray-600);">Nitrogen</span>
+                                        <span style="font-weight: 700;">85%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill green" style="width: 85%;"></div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 16px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                                        <span style="color: var(--gray-600);">Phosphorus</span>
+                                        <span style="font-weight: 700;">72%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill green" style="width: 72%;"></div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 16px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                                        <span style="color: var(--gray-600);">Potassium</span>
+                                        <span style="font-weight: 700;">68%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill amber" style="width: 68%;"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                                        <span style="color: var(--gray-600);">pH Level</span>
+                                        <span style="font-weight: 700;">6.8</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill blue" style="width: 68%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== USER CROPS ========== -->
+            <div class="page-section" id="user-crops">
+                <div class="grid-3">
+                    <div class="crop-card">
+                        <div class="crop-card-header">
+                            <div class="crop-card-icon" style="background: #fef3c7; color: #d97706;"><i class="fas fa-wheat-awn"></i></div>
+                            <span class="badge badge-success">Healthy</span>
+                        </div>
+                        <div class="crop-card-title">Wheat</div>
+                        <div class="crop-card-sub">12 acres • Planted Mar 15</div>
+                        <div style="margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                                <span style="color: var(--gray-500);">Growth Stage</span>
+                                <span style="font-weight: 700;">Heading</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill green" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                        <div class="crop-card-row"><span class="label">Days to Harvest</span><span class="value">28 days</span></div>
+                        <div class="crop-card-row"><span class="label">Est. Yield</span><span class="value">50 tons</span></div>
+                    </div>
+                    <div class="crop-card">
+                        <div class="crop-card-header">
+                            <div class="crop-card-icon" style="background: #fef9c3; color: #a16207;"><i class="fas fa-corn"></i></div>
+                            <span class="badge badge-warning">Attention</span>
+                        </div>
+                        <div class="crop-card-title">Corn</div>
+                        <div class="crop-card-sub">20 acres • Planted Apr 20</div>
+                        <div style="margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                                <span style="color: var(--gray-500);">Growth Stage</span>
+                                <span style="font-weight: 700;">Silking</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill amber" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                        <div class="crop-card-row"><span class="label">Days to Harvest</span><span class="value">45 days</span></div>
+                        <div class="crop-card-row"><span class="label">Est. Yield</span><span class="value">116 tons</span></div>
+                    </div>
+                    <div class="crop-card">
+                        <div class="crop-card-header">
+                            <div class="crop-card-icon" style="background: #dcfce7; color: #16a34a;"><i class="fas fa-seedling"></i></div>
+                            <span class="badge badge-success">Healthy</span>
+                        </div>
+                        <div class="crop-card-title">Soybeans</div>
+                        <div class="crop-card-sub">8 acres • Planted May 10</div>
+                        <div style="margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                                <span style="color: var(--gray-500);">Growth Stage</span>
+                                <span style="font-weight: 700;">Pod Fill</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill green" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                        <div class="crop-card-row"><span class="label">Days to Harvest</span><span class="value">18 days</span></div>
+                        <div class="crop-card-row"><span class="label">Est. Yield</span><span class="value">25 tons</span></div>
+                    </div>
+                    <div class="crop-card">
+                        <div class="crop-card-header">
+                            <div class="crop-card-icon" style="background: #dbeafe; color: #2563eb;"><i class="fas fa-bowl-rice"></i></div>
+                            <span class="badge badge-success">Healthy</span>
+                        </div>
+                        <div class="crop-card-title">Rice</div>
+                        <div class="crop-card-sub">5 acres • Planted Jun 1</div>
+                        <div style="margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                                <span style="color: var(--gray-500);">Growth Stage</span>
+                                <span style="font-weight: 700;">Maturity</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill green" style="width: 92%;"></div>
+                            </div>
+                        </div>
+                        <div class="crop-card-row"><span class="label">Days to Harvest</span><span class="value">10 days</span></div>
+                        <div class="crop-card-row"><span class="label">Est. Yield</span><span class="value">36 tons</span></div>
+                    </div>
+                    <div class="crop-card">
+                        <div class="crop-card-header">
+                            <div class="crop-card-icon" style="background: #f3e8ff; color: #9333ea;"><i class="fas fa-carrot"></i></div>
+                            <span class="badge badge-success">Healthy</span>
+                        </div>
+                        <div class="crop-card-title">Vegetables</div>
+                        <div class="crop-card-sub">3 acres • Planted Jul 5</div>
+                        <div style="margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                                <span style="color: var(--gray-500);">Growth Stage</span>
+                                <span style="font-weight: 700;">Vegetative</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill green" style="width: 40%;"></div>
+                            </div>
+                        </div>
+                        <div class="crop-card-row"><span class="label">Days to Harvest</span><span class="value">60 days</span></div>
+                        <div class="crop-card-row"><span class="label">Est. Yield</span><span class="value">26 tons</span></div>
+                    </div>
+                    <div class="crop-card" style="border-style: dashed; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 280px;">
+                        <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--gray-100); display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                            <i class="fas fa-plus" style="font-size: 20px; color: var(--gray-400);"></i>
+                        </div>
+                        <div style="font-weight: 600; color: var(--gray-600);">Add New Crop</div>
+                        <div style="font-size: 13px; color: var(--gray-400); margin-top: 4px;">Start tracking a new crop</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== USER MARKET ========== -->
+            <div class="page-section" id="user-market">
+                <div class="grid-2" style="margin-bottom: 24px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Live Market Prices</div>
+                            <span class="badge badge-success" style="font-size: 11px;"><i class="fas fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Live</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="market-item">
+                                <div class="market-item-left">
+                                    <div class="market-item-icon" style="background: #fef3c7; color: #d97706;"><i class="fas fa-bread-slice"></i></div>
+                                    <span class="market-item-name">Wheat</span>
+                                </div>
+                                <div class="market-item-right">
+                                    <div class="market-item-price">$6.42 / bushel</div>
+                                    <div class="market-item-change up"><i class="fas fa-arrow-up" style="font-size: 9px;"></i> 2.4%</div>
+                                </div>
+                            </div>
+                            <div class="market-item">
+                                <div class="market-item-left">
+                                    <div class="market-item-icon" style="background: #fef9c3; color: #a16207;"><i class="fas fa-corn"></i></div>
+                                    <span class="market-item-name">Corn</span>
+                                </div>
+                                <div class="market-item-right">
+                                    <div class="market-item-price">$4.18 / bushel</div>
+                                    <div class="market-item-change down"><i class="fas fa-arrow-down" style="font-size: 9px;"></i> 1.2%</div>
+                                </div>
+                            </div>
+                            <div class="market-item">
+                                <div class="market-item-left">
+                                    <div class="market-item-icon" style="background: #dcfce7; color: #16a34a;"><i class="fas fa-seedling"></i></div>
+                                    <span class="market-item-name">Soybeans</span>
+                                </div>
+                                <div class="market-item-right">
+                                    <div class="market-item-price">$12.85 / bushel</div>
+                                    <div class="market-item-change up"><i class="fas fa-arrow-up" style="font-size: 9px;"></i> 3.1%</div>
+                                </div>
+                            </div>
+                            <div class="market-item">
+                                <div class="market-item-left">
+                                    <div class="market-item-icon" style="background: #d1fae5; color: #059669;"><i class="fas fa-bowl-rice"></i></div>
+                                    <span class="market-item-name">Rice</span>
+                                </div>
+                                <div class="market-item-right">
+                                    <div class="market-item-price">$18.20 / cwt</div>
+                                    <div class="market-item-change up"><i class="fas fa-arrow-up" style="font-size: 9px;"></i> 0.8%</div>
+                                </div>
+                            </div>
+                            <div class="market-item">
+                                <div class="market-item-left">
+                                    <div class="market-item-icon" style="background: #fee2e2; color: #dc2626;"><i class="fas fa-apple-whole"></i></div>
+                                    <span class="market-item-name">Apples</span>
+                                </div>
+                                <div class="market-item-right">
+                                    <div class="market-item-price">$1.85 / lb</div>
+                                    <div class="market-item-change up"><i class="fas fa-arrow-up" style="font-size: 9px;"></i> 1.5%</div>
+                                </div>
+                            </div>
+                            <div class="market-item">
+                                <div class="market-item-left">
+                                    <div class="market-item-icon" style="background: #f3e8ff; color: #9333ea;"><i class="fas fa-carrot"></i></div>
+                                    <span class="market-item-name">Vegetables</span>
+                                </div>
+                                <div class="market-item-right">
+                                    <div class="market-item-price">$2.40 / lb</div>
+                                    <div class="market-item-change down"><i class="fas fa-arrow-down" style="font-size: 9px;"></i> 0.5%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">7-Day Price Trend</div>
+                            <select class="form-select" style="width: auto; min-width: 120px;">
+                                <option>Wheat</option>
+                                <option>Corn</option>
+                                <option>Soybeans</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="marketTrendChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Market Insights</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid-3" style="gap: 16px;">
+                            <div style="padding: 20px; background: var(--gray-50); border-radius: 12px; text-align: center;">
+                                <div style="width: 48px; height: 48px; border-radius: 12px; background: #d1fae5; color: #059669; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 20px;"><i class="fas fa-arrow-trend-up"></i></div>
+                                <div style="font-size: 20px; font-weight: 800; color: var(--gray-800);">+12.5%</div>
+                                <div style="font-size: 13px; color: var(--gray-500); margin-top: 4px;">Wheat price increase this month</div>
+                            </div>
+                            <div style="padding: 20px; background: var(--gray-50); border-radius: 12px; text-align: center;">
+                                <div style="width: 48px; height: 48px; border-radius: 12px; background: #fef3c7; color: #d97706; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 20px;"><i class="fas fa-cloud-rain"></i></div>
+                                <div style="font-size: 20px; font-weight: 800; color: var(--gray-800);">High</div>
+                                <div style="font-size: 13px; color: var(--gray-500); margin-top: 4px;">Rainfall expected next week</div>
+                            </div>
+                            <div style="padding: 20px; background: var(--gray-50); border-radius: 12px; text-align: center;">
+                                <div style="width: 48px; height: 48px; border-radius: 12px; background: #dbeafe; color: #2563eb; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 20px;"><i class="fas fa-calendar-check"></i></div>
+                                <div style="font-size: 20px; font-weight: 800; color: var(--gray-800);">Best</div>
+                                <div style="font-size: 13px; color: var(--gray-500); margin-top: 4px;">Time to sell soybeans</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== USER PROFILE ========== -->
+            <div class="page-section" id="user-profile">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-body" style="text-align: center; padding: 32px 20px;">
+                            <div class="profile-avatar-lg">JD</div>
+                            <h3 style="font-size: 20px; font-weight: 700; color: var(--gray-800); margin-bottom: 4px;">John Doe</h3>
+                            <p style="font-size: 14px; color: var(--gray-500); margin-bottom: 12px;">Premium Farmer</p>
+                            <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 24px;">
+                                <span class="badge badge-success">Verified</span>
+                                <span class="badge badge-info">5 Years</span>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 10px; text-align: left; max-width: 320px; margin: 0 auto;">
+                                <div class="info-row">
+                                    <div class="info-row-left">
+                                        <i class="fas fa-envelope" style="color: var(--gray-400);"></i>
+                                        <span>john.doe@farm.com</span>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-row-left">
+                                        <i class="fas fa-phone" style="color: var(--gray-400);"></i>
+                                        <span>+1 (555) 123-4567</span>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-row-left">
+                                        <i class="fas fa-map-marker-alt" style="color: var(--gray-400);"></i>
+                                        <span>Springfield, IL 62701</span>
+                                    </div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-row-left">
+                                        <i class="fas fa-calendar" style="color: var(--gray-400);"></i>
+                                        <span>Member since 2021</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Edit Profile</div>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                    <div class="form-group">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" class="form-input" value="John">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" class="form-input" value="Doe">
+                                    </div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                    <div class="form-group">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-input" value="john.doe@farm.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Phone</label>
+                                        <input type="tel" class="form-input" value="+1 (555) 123-4567">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Farm Address</label>
+                                    <textarea class="form-textarea" rows="2">1234 Country Road, Springfield, IL 62701</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Bio</label>
+                                    <textarea class="form-textarea" rows="3">Experienced farmer specializing in wheat and corn production. Passionate about sustainable farming practices and organic agriculture.</textarea>
+                                </div>
+                                <div style="display: flex; gap: 12px;">
+                                    <button type="button" class="btn btn-primary">Save Changes</button>
+                                    <button type="button" class="btn btn-secondary">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<style>/* ========================================
+   AgriFlow - Agriculture Dashboard Styles
+   ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #10b981;
+    --primary-dark: #059669;
+    --primary-light: #d1fae5;
+    --secondary: #3b82f6;
+    --accent: #f59e0b;
+    --danger: #ef4444;
+    --dark: #1f2937;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --sidebar-width: 260px;
+    --sidebar-collapsed: 72px;
+    --header-height: 64px;
+    --radius: 12px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--gray-50);
+    color: var(--gray-800);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--gray-100);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* ========================================
+   SIDEBAR
+   ======================================== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: #ffffff;
+    border-right: 1px solid var(--gray-200);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, width 0.3s ease;
+}
+
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed);
+}
+
+.sidebar-header {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--gray-100);
+    flex-shrink: 0;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-logo-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.sidebar-logo-image {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.sidebar-logo-text {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--gray-800);
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebar-logo-sub {
+    font-size: 11px;
+    color: var(--gray-400);
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebar.collapsed .sidebar-logo-text,
+.sidebar.collapsed .sidebar-logo-sub {
+    opacity: 0;
+    width: 0;
+}
+
+.sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 12px;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li {
+    margin-bottom: 4px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.nav-link:hover {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.nav-link.active {
+    background: linear-gradient(90deg, var(--primary-light), transparent);
+    color: var(--primary-dark);
+    border-right: 3px solid var(--primary);
+}
+
+.nav-link i {
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.nav-text {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebar.collapsed .nav-text {
+    opacity: 0;
+    width: 0;
+}
+
+.sidebar-footer {
+    padding: 16px 12px;
+    border-top: 1px solid var(--gray-100);
+    flex-shrink: 0;
+}
+
+.sidebar-toggle {
+    position: absolute;
+    right: -12px;
+    top: 80px;
+    width: 24px;
+    height: 24px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    box-shadow: var(--shadow-md);
+    z-index: 1001;
+    transition: background 0.2s;
+}
+
+.sidebar-toggle:hover {
+    background: var(--primary-dark);
+}
+
+/* Mobile overlay */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}
+
+/* ========================================
+   MAIN CONTENT
+   ======================================== */
+.main-wrapper {
+    margin-left: var(--sidebar-width);
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+.main-wrapper.collapsed {
+    margin-left: var(--sidebar-collapsed);
+}
+
+/* Header */
+.top-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--gray-200);
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--gray-600);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.menu-btn:hover {
+    background: var(--gray-100);
+}
+
+.header-title h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gray-800);
+    line-height: 1.2;
+}
+
+.header-title p {
+    font-size: 12px;
+    color: var(--gray-400);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.header-search i {
+    position: absolute;
+    left: 12px;
+    color: var(--gray-400);
+    font-size: 14px;
+}
+
+.header-search input {
+    width: 240px;
+    padding: 8px 12px 8px 36px;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    background: var(--gray-50);
+    font-size: 13px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.header-search input:focus {
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.header-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background: var(--gray-50);
+    color: var(--gray-500);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.header-btn:hover {
+    background: var(--gray-100);
+    color: var(--gray-700);
+}
+
+.header-btn .badge-dot {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    background: var(--danger);
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.header-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 16px;
+    border-left: 1px solid var(--gray-200);
+}
+
+.header-profile-info {
+    text-align: right;
+}
+
+.header-profile-info .name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.header-profile-info .role {
+    font-size: 11px;
+    color: var(--gray-400);
+}
+
+.header-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+/* Content Area */
+.content-area {
+    padding: 24px;
+    max-width: 1600px;
+}
+
+.page-section {
+    display: none;
+    animation: fadeIn 0.35s ease;
+}
+
+.page-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================================
+   CARDS
+   ======================================== */
+.card {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    padding: 20px 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gray-800);
+}
+
+.card-body {
+    padding: 0 20px 20px;
+}
+
+/* Stat Cards */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+}
+
+.stat-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.stat-icon.green { background: var(--primary-light); color: var(--primary-dark); }
+.stat-icon.blue { background: #dbeafe; color: #2563eb; }
+.stat-icon.amber { background: #fef3c7; color: #d97706; }
+.stat-icon.purple { background: #f3e8ff; color: #9333ea; }
+.stat-icon.red { background: #fee2e2; color: #dc2626; }
+.stat-icon.teal { background: #ccfbf1; color: #0d9488; }
+
+.stat-trend {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.stat-trend.up {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.stat-trend.down {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gray-800);
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--gray-500);
+}
+
+/* ========================================
+   CHARTS
+   ======================================== */
+.chart-container {
+    position: relative;
+    height: 280px;
+    width: 100%;
+}
+
+.chart-container-sm {
+    position: relative;
+    height: 220px;
+    width: 100%;
+}
+
+/* ========================================
+   TABLES
+   ======================================== */
+.table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.data-table thead {
+    background: var(--gray-50);
+}
+
+.data-table th {
+    text-align: left;
+    padding: 14px 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gray-500);
+    white-space: nowrap;
+}
+
+.data-table td {
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--gray-700);
+    border-top: 1px solid var(--gray-100);
+    white-space: nowrap;
+}
+
+.data-table tbody tr {
+    transition: background 0.15s;
+}
+
+.data-table tbody tr:hover {
+    background: #f0fdf4;
+}
+
+.table-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.table-user img,
+.table-user .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.table-user .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 13px;
+    color: white;
+}
+
+.table-user-info .name {
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.table-user-info .email {
+    font-size: 12px;
+    color: var(--gray-400);
+}
+
+.table-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.table-actions button {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: var(--gray-400);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.table-actions button:hover {
+    background: var(--gray-100);
+    color: var(--primary-dark);
+}
+
+.table-actions button.delete:hover {
+    color: var(--danger);
+    background: #fee2e2;
+}
+
+/* ========================================
+   BADGES & STATUS
+   ======================================== */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-success { background: var(--primary-light); color: var(--primary-dark); }
+.badge-warning { background: #fef3c7; color: #b45309; }
+.badge-danger { background: #fee2e2; color: #991b1b; }
+.badge-info { background: #dbeafe; color: #1e40af; }
+.badge-neutral { background: var(--gray-100); color: var(--gray-600); }
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-secondary {
+    background: var(--gray-100);
+    color: var(--gray-700);
+    border: 1px solid var(--gray-200);
+}
+
+.btn-secondary:hover {
+    background: var(--gray-200);
+}
+
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 12px;
+}
+
+/* ========================================
+   FORMS
+   ======================================== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 6px;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    font-size: 13px;
+    font-family: inherit;
+    background: white;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* ========================================
+   GRID SYSTEM
+   ======================================== */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+/* ========================================
+   ACTIVITY / LIST ITEMS
+   ======================================== */
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px;
+    border-radius: 12px;
+    transition: background 0.2s;
+}
+
+.activity-item:hover {
+    background: var(--gray-50);
+}
+
+.activity-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.activity-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.activity-content p {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 2px;
+}
+
+.activity-content span {
+    font-size: 12px;
+    color: var(--gray-400);
+}
+
+.activity-time {
+    font-size: 12px;
+    color: var(--gray-400);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   CROP CARDS
+   ======================================== */
+.crop-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.crop-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+}
+
+.crop-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.crop-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.crop-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 2px;
+}
+
+.crop-card-sub {
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-bottom: 16px;
+}
+
+.crop-card-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 13px;
+}
+
+.crop-card-row:last-child {
+    border-bottom: none;
+}
+
+.crop-card-row .label {
+    color: var(--gray-500);
+}
+
+.crop-card-row .value {
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.crop-card-footer {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--gray-100);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.crop-card-footer .label {
+    font-size: 13px;
+    color: var(--gray-500);
+}
+
+.crop-card-footer .value {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+/* Progress bar */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--gray-200);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.6s ease;
+}
+
+.progress-bar-fill.green { background: var(--primary); }
+.progress-bar-fill.amber { background: var(--accent); }
+.progress-bar-fill.blue { background: var(--secondary); }
+.progress-bar-fill.red { background: var(--danger); }
+
+/* ========================================
+   WEATHER CARD
+   ======================================== */
+.weather-card {
+    background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    color: white;
+    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
+}
+
+.weather-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.weather-temp {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.weather-label {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.weather-grid-item {
+    text-align: center;
+}
+
+.weather-grid-item i {
+    font-size: 16px;
+    opacity: 0.8;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.weather-grid-item .val {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.weather-grid-item .lbl {
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+/* ========================================
+   TASK CARDS
+   ======================================== */
+.task-card {
+    padding: 16px;
+    border-radius: 12px;
+    border-left: 4px solid;
+    background: white;
+}
+
+.task-card.green { border-left-color: var(--primary); background: #f0fdf4; }
+.task-card.amber { border-left-color: var(--accent); background: #fffbeb; }
+.task-card.blue { border-left-color: var(--secondary); background: #eff6ff; }
+.task-card.purple { border-left-color: #a855f7; background: #faf5ff; }
+.task-card.red { border-left-color: var(--danger); background: #fef2f2; }
+
+.task-time {
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.task-card.green .task-time { color: var(--primary-dark); }
+.task-card.amber .task-time { color: #b45309; }
+.task-card.blue .task-time { color: #1e40af; }
+.task-card.purple .task-time { color: #7c3aed; }
+.task-card.red .task-time { color: #991b1b; }
+
+.task-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 4px;
+}
+
+.task-desc {
+    font-size: 12px;
+    color: var(--gray-500);
+}
+
+/* ========================================
+   FARM LAYOUT
+   ======================================== */
+.farm-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.farm-sector {
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.farm-sector:hover {
+    transform: scale(1.03);
+}
+
+.farm-sector i {
+    font-size: 28px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.farm-sector .name {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.farm-sector .area {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* ========================================
+   MARKET PRICE ITEMS
+   ======================================== */
+.market-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 10px;
+    background: var(--gray-50);
+    margin-bottom: 8px;
+}
+
+.market-item:last-child {
+    margin-bottom: 0;
+}
+
+.market-item-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.market-item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.market-item-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.market-item-right {
+    text-align: right;
+}
+
+.market-item-price {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray-800);
+}
+
+.market-item-change {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.market-item-change.up { color: var(--primary-dark); }
+.market-item-change.down { color: var(--danger); }
+
+/* ========================================
+   PROFILE
+   ======================================== */
+.profile-avatar-lg {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+}
+
+/* ========================================
+   MODAL
+   ======================================== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-box {
+    background: white;
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 480px;
+    box-shadow: var(--shadow-xl);
+    animation: modalIn 0.3s ease;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gray-800);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: var(--gray-400);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.modal-close:hover {
+    background: var(--gray-100);
+    color: var(--gray-700);
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--gray-100);
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+/* ========================================
+   EQUIPMENT / SOIL ITEMS
+   ======================================== */
+.info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 10px;
+    background: var(--gray-50);
+    margin-bottom: 8px;
+}
+
+.info-row:last-child {
+    margin-bottom: 0;
+}
+
+.info-row-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--gray-700);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 1280px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .grid-4 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+        width: var(--sidebar-width) !important;
+    }
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    .sidebar.collapsed {
+        width: var(--sidebar-width) !important;
+    }
+    .sidebar.collapsed .nav-text,
+    .sidebar.collapsed .sidebar-logo-text,
+    .sidebar.collapsed .sidebar-logo-sub {
+        opacity: 1;
+        width: auto;
+    }
+    .main-wrapper {
+        margin-left: 0 !important;
+    }
+    .sidebar-toggle {
+        display: none;
+    }
+    .menu-btn {
+        display: block;
+    }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .header-search input {
+        width: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .stat-grid { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .content-area { padding: 16px; }
+    .header-search { display: none; }
+    .header-profile-info { display: none; }
+    .top-header { padding: 0 16px; }
+    .chart-container { height: 240px; }
+    .farm-grid { grid-template-columns: repeat(2, 1fr); }
+    .weather-temp { font-size: 32px; }
+}
+
+@media (max-width: 480px) {
+    .stat-value { font-size: 22px; }
+    .card-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .farm-grid { grid-template-columns: 1fr; }
+    .weather-grid { grid-template-columns: 1fr; text-align: left; display: flex; flex-direction: column; gap: 8px; }
+    .weather-grid-item { display: flex; align-items: center; gap: 12px; }
+    .weather-grid-item i { margin-bottom: 0; }
+}</style>
+    <script>// ========================================
+// AgriFlow - Dashboard JavaScript
+// ========================================
+
+// State
+let sidebarCollapsed = false;
+let currentPage = '';
+let charts = {};
+
+// Initialize on DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+    initSidebar();
+    initNavigation();
+    initCharts();
+    initSearch();
+    initModals();
+    initResponsive();
+    initUnavailableActions();
+});
+
+// ========================================
+// SIDEBAR
+// ========================================
+function initSidebar() {
+    const toggleBtn = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    const mainWrapper = document.getElementById('mainWrapper');
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+            if (window.innerWidth >= 1024) {
+                sidebarCollapsed = !sidebarCollapsed;
+                sidebar.classList.toggle('collapsed', sidebarCollapsed);
+                mainWrapper.classList.toggle('collapsed', sidebarCollapsed);
+
+                const icon = toggleBtn.querySelector('i');
+                if (icon) {
+                    icon.className = sidebarCollapsed ? 'fas fa-chevron-right' : 'fas fa-chevron-left';
+                }
+            }
+        });
+    }
+
+    // Mobile menu button
+    const menuBtn = document.getElementById('menuBtn');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    if (menuBtn) {
+        menuBtn.addEventListener('click', openSidebar);
+    }
+
+    if (overlay) {
+        overlay.addEventListener('click', closeSidebar);
+    }
+}
+
+function openSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (sidebar) sidebar.classList.add('open');
+    if (overlay) overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// ========================================
+// NAVIGATION
+// ========================================
+function initNavigation() {
+    // Auto-activate first page
+    const firstPage = document.querySelector('.page-section');
+    if (firstPage) {
+        const pageId = firstPage.id;
+        navigateTo(pageId);
+    }
+
+    // Nav link clicks
+    document.querySelectorAll('.nav-link[data-page]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const page = this.getAttribute('data-page');
+            if (page) navigateTo(page);
+        });
+    });
+}
+
+function navigateTo(pageId) {
+    if (!pageId) return;
+    currentPage = pageId;
+
+    // Hide all sections
+    document.querySelectorAll('.page-section').forEach(sec => {
+        sec.classList.remove('active');
+    });
+
+    // Show target
+    const target = document.getElementById(pageId);
+    if (target) {
+        target.classList.add('active');
+        // Re-trigger animation
+        target.style.animation = 'none';
+        target.offsetHeight; // force reflow
+        target.style.animation = '';
+    }
+
+    // Update nav active state
+    document.querySelectorAll('.nav-link[data-page]').forEach(link => {
+        link.classList.toggle('active', link.getAttribute('data-page') === pageId);
+    });
+
+    // Update header title
+    updateHeader(pageId);
+
+    // Close mobile sidebar
+    closeSidebar();
+
+    // Re-init charts if needed
+    if (pageId.includes('dashboard') || pageId.includes('reports') || pageId.includes('market')) {
+        setTimeout(initCharts, 50);
+    }
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+}
+
+function updateHeader(pageId) {
+    const titleEl = document.getElementById('pageTitle');
+    const subtitleEl = document.getElementById('pageSubtitle');
+
+    const map = {
+        // Admin
+        'admin-dashboard': { title: 'Dashboard', subtitle: 'Overview of agriculture operations' },
+        'admin-farmers': { title: 'Farmers', subtitle: 'Manage registered farmers' },
+        'admin-crops': { title: 'Crops', subtitle: 'Crop management and monitoring' },
+        'admin-reports': { title: 'Reports', subtitle: 'Analytics and performance reports' },
+        'admin-settings': { title: 'Settings', subtitle: 'System configuration' },
+        // User
+        'user-dashboard': { title: 'My Dashboard', subtitle: 'Your farm at a glance' },
+        'user-farm': { title: 'My Farm', subtitle: 'Farm details and layout' },
+        'user-crops': { title: 'My Crops', subtitle: 'Track your crop progress' },
+        'user-market': { title: 'Market', subtitle: 'Live market prices and trends' },
+        'user-profile': { title: 'Profile', subtitle: 'Manage your account' }
+    };
+
+    const info = map[pageId] || { title: 'Dashboard', subtitle: '' };
+    if (titleEl) titleEl.textContent = info.title;
+    if (subtitleEl) subtitleEl.textContent = info.subtitle;
+}
+
+// ========================================
+// CHARTS
+// ========================================
+function initCharts() {
+    // Destroy existing
+    Object.values(charts).forEach(c => { if (c) c.destroy(); });
+    charts = {};
+
+    // Admin Revenue Chart
+    const revCtx = document.getElementById('revenueChart');
+    if (revCtx && isVisible(revCtx)) {
+        charts.revenue = new Chart(revCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+                datasets: [{
+                    label: '2026 Revenue',
+                    data: [32,35,42,38,45,52,48,55,62,58,65,72],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16,185,129,0.08)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#10b981',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }, {
+                    label: '2025 Revenue',
+                    data: [28,30,35,32,38,42,40,45,50,48,52,58],
+                    borderColor: '#94a3b8',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    borderDash: [5,5],
+                    tension: 0.4,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top', align: 'end', labels: { usePointStyle: true, boxWidth: 8, font: {size:11} } }
+                },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { callback: v => '$' + v + 'K', font: {size:11} } },
+                    x: { grid: { display: false }, ticks: { font: {size:11} } }
+                }
+            }
+        });
+    }
+
+    // Crop Distribution
+    const cropCtx = document.getElementById('cropDistChart');
+    if (cropCtx && isVisible(cropCtx)) {
+        charts.cropDist = new Chart(cropCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Wheat','Corn','Soybeans','Rice','Veggies','Fruits'],
+                datasets: [{
+                    data: [25,35,15,12,8,5],
+                    backgroundColor: ['#f59e0b','#eab308','#22c55e','#10b981','#a855f7','#ef4444'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8, padding: 12, font: {size:11} } }
+                }
+            }
+        });
+    }
+
+    // Yield Comparison
+    const yieldCtx = document.getElementById('yieldChart');
+    if (yieldCtx && isVisible(yieldCtx)) {
+        charts.yield = new Chart(yieldCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Wheat','Corn','Soybeans','Rice','Vegetables'],
+                datasets: [{
+                    label: '2025',
+                    data: [4.1,5.5,2.9,6.8,7.9],
+                    backgroundColor: '#94a3b8',
+                    borderRadius: 6
+                }, {
+                    label: '2026',
+                    data: [4.2,5.8,3.1,7.2,8.5],
+                    backgroundColor: '#10b981',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, boxWidth: 8, font: {size:11} } } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { callback: v => v + ' t', font: {size:11} } },
+                    x: { grid: { display: false }, ticks: { font: {size:11} } }
+                }
+            }
+        });
+    }
+
+    // Registration Trend
+    const regCtx = document.getElementById('regChart');
+    if (regCtx && isVisible(regCtx)) {
+        charts.reg = new Chart(regCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'],
+                datasets: [{
+                    label: 'New Farmers',
+                    data: [45,52,48,61,55,67,72,58],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59,130,246,0.08)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#3b82f6',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { font: {size:11} } },
+                    x: { grid: { display: false }, ticks: { font: {size:11} } }
+                }
+            }
+        });
+    }
+
+    // User Farm Activity
+    const farmCtx = document.getElementById('farmActivityChart');
+    if (farmCtx && isVisible(farmCtx)) {
+        charts.farmActivity = new Chart(farmCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+                datasets: [{
+                    label: 'Water (gal)',
+                    data: [1200,1500,1100,1800,1400,900,1000],
+                    backgroundColor: '#3b82f6',
+                    borderRadius: 6
+                }, {
+                    label: 'Fertilizer (lbs)',
+                    data: [50,75,0,100,60,0,40],
+                    backgroundColor: '#10b981',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, boxWidth: 8, font: {size:11} } } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { font: {size:11} } },
+                    x: { grid: { display: false }, ticks: { font: {size:11} } }
+                }
+            }
+        });
+    }
+
+    // User Market Trend
+    const marketCtx = document.getElementById('marketTrendChart');
+    if (marketCtx && isVisible(marketCtx)) {
+        charts.marketTrend = new Chart(marketCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+                datasets: [{
+                    label: 'Wheat',
+                    data: [6.30,6.35,6.28,6.40,6.42,6.38,6.42],
+                    borderColor: '#f59e0b',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    pointRadius: 3
+                }, {
+                    label: 'Corn',
+                    data: [4.25,4.22,4.18,4.20,4.18,4.15,4.18],
+                    borderColor: '#eab308',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    pointRadius: 3
+                }, {
+                    label: 'Soybeans',
+                    data: [12.40,12.55,12.60,12.75,12.80,12.82,12.85],
+                    borderColor: '#22c55e',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    pointRadius: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, boxWidth: 8, font: {size:11} } } },
+                scales: {
+                    y: { grid: { color: '#f1f5f9' }, ticks: { callback: v => '$' + v, font: {size:11} } },
+                    x: { grid: { display: false }, ticks: { font: {size:11} } }
+                }
+            }
+        });
+    }
+}
+
+function isVisible(el) {
+    return el && el.offsetParent !== null;
+}
+
+// ========================================
+// SEARCH
+// ========================================
+function initSearch() {
+    const searchInput = document.getElementById('farmerSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const term = this.value.toLowerCase();
+            document.querySelectorAll('#farmersTableBody tr').forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(term) ? '' : 'none';
+            });
+        });
+    }
+}
+
+// ========================================
+// MODALS
+// ========================================
+function initModals() {
+    // Close on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+    });
+
+    // Close on X button
+    document.querySelectorAll('.modal-close').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const overlay = this.closest('.modal-overlay');
+            if (overlay) overlay.classList.remove('active');
+        });
+    });
+}
+
+function openModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) modal.classList.add('active');
+}
+
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    if (modal) modal.classList.remove('active');
+}
+
+// ========================================
+// RESPONSIVE
+// ========================================
+function initResponsive() {
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 1024) {
+            closeSidebar();
+        }
+    });
+}
+
+function initUnavailableActions() {
+    document.addEventListener('click', function(event) {
+        const action = event.target.closest('button, a.btn');
+        if (!action || action.closest('.sidebar') || action.classList.contains('menu-btn') || action.classList.contains('modal-close')) return;
+        window.location.href = '404.html';
+    }, true);
+}
+
+// ========================================
+// LOGOUT
+// ========================================
+function logout() {
+    if (confirm('Are you sure you want to logout?')) {
+        window.location.href = 'login.html';
+    }
+}</script>
+</body>
+</html>
